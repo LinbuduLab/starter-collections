@@ -1,0 +1,23 @@
+{
+  "name": "pnpm-workspace-example",
+  "version": "1.0.0",
+  "description": "Advanced pnpm workspace example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinbuduLab/pnpm-workspace-example.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LinbuduLab/pnpm-workspace-example/issues"
+  },
+  "homepage": "https://github.com/LinbuduLab/pnpm-workspace-example#readme",
+  "devDependencies": {
+    "typescript": "^4.5.0-beta"
+  }
+}
