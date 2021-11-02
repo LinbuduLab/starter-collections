@@ -1,3 +1,3 @@
 export function child1Func() {
-  console.log("Func from child1");
+  console.log("Func from child111");
 }
