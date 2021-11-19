@@ -2,6 +2,8 @@
 
 Advanced pnpm workspace example
 
+## Commands
+
 ```bash
 pnpm i typescript@beta --filter '*' -D
 # workspace:^1.0.0 这种形式，如果发 parent1，会发成 ^1.0.0
