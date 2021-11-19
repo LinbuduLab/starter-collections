@@ -60,4 +60,6 @@ const getTSConfigContent = (pkg: string) => ({
     tsconfigFile,
     JSON.stringify(getTSConfigContent(pkgName), null, 2)
   );
+
+  consola.success(`Create ${pkgName}`);
 })();
