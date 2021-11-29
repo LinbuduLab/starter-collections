@@ -27,5 +27,6 @@ pnpm changeset
 pnpm changeset version
 pnpm install
 git add . && git commit -m 'feat: bump!'
-pnpm publish -r
+pnpm publish -r --access=public
+git push
 ```
