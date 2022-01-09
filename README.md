@@ -8,7 +8,7 @@ pnpm add child1 --filter 'parent1' --workspace
 pnpm run build --recursive --if-present --parallel --enable-pre-post-scripts --filter ''
 pnpm exec jest --recursive --parallel --filter ''
 
-pnpm dlx create-react-app ./my-app
+pnpx create-react-app ./my-app
 pnpm create react-app my-app
 
 pnpm env use --global lts
