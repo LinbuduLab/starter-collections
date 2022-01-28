@@ -24,7 +24,7 @@ jobs:
       - name: Deps Installation
         run: |
           npm i pnpm -g
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build
         run: |
           pnpm build -r --if-present
