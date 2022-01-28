@@ -18,22 +18,49 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-      - name: Install deps and audit
-        uses: ./.github/actions/pnpm
+      - name: Setup caching
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PNPM_CACHE_FOLDER }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
-      - name: Set up NPM credentials
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.x
+
+      - name: Setup node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'pnpm'
+
+      - name: Setup NPM credentials
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}   
+
+      - name: Setup NPM credentials
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Setup pnpm config
+        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+
+      - name: Deps Installation
+        run: pnpm install
 
       - name: Create versions PR & prepare publish
         id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm ci:version
+          publish: pnpm ci:publish
           commit: 'release(deploy): Release'
           title: 'release(deploy): Release'
-          publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
