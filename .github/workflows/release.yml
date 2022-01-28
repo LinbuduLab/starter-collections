@@ -2,8 +2,7 @@ name: Release
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
 
 env:
   HUSKY: 0 # Bypass husky commit hook for CI
