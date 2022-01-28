@@ -1,6 +1,6 @@
 {
   "name": "pw-parent2",
-  "version": "3.0.0",
+  "version": "5.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,12 +9,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "cac": "^6.7.11",
-    "execa": "^5.1.1"
+    "cac": "^6.7.12",
+    "execa": "^5.1.1",
+    "pw-child2": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^4.5.0-beta"
+    "typescript": "^4.5.5"
   }
 }
