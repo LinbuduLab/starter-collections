@@ -58,8 +58,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: pnpm ci:version
-          publish: pnpm ci:publish
+          # version: pnpm ci:version
+          # publish: pnpm ci:publish
           commit: "release(deploy): Release"
           title: "release(deploy): Release"
         env:
