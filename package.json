@@ -14,7 +14,7 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
-    "ci:publish": "pnpm build:all && git status && pnpm publish -r && pnpm changeset tag",
+    "ci:publish": "pnpm build:all && pnpm changeset publish",
     "changeset-publish": "changeset publish",
     "changeset-tag": "changeset tag"
   },
