@@ -30,3 +30,43 @@ git add . && git commit -m 'feat: bump!'
 pnpm publish -r --access=public
 git push
 ```
+
+More filter syntax:
+
+> See [Filtering](https://pnpm.io/filtering#--filter-package_name) for more details.
+
+```bash
+# exact matching
+pnpm --filter '@scope/*'
+pnpm --filter 'prefix-*'
+pnpm --filter 'pre*'
+pnpm --filter '*post'
+
+# package and its deps
+pnpm --filter pkg...
+pnpm --filter "@scope/pkg-*..."
+
+# package and its dependents
+pnpm --filter ...pkg
+
+# only package deps
+pnpm --filter "foo^..."
+
+# only package dependents
+pnpm --filter "...^foo"
+
+# use directory
+pnpm --filter ./packages/pkg
+
+# include packages under dir
+pnpm --filter ...{./packages}
+pnpm --filter {./packages}...
+pnpm --filter ...{./packages}[origin/master]...
+
+# since
+pnpm --filter '...[origin/master]'
+
+# exclude
+pnpm --filter=!excluded-pkg
+
+```
