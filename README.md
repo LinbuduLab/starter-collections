@@ -70,3 +70,7 @@ pnpm --filter '...[origin/master]'
 pnpm --filter=!excluded-pkg
 
 ```
+
+## License
+
+This project follows [MIT License](LICENSE).
