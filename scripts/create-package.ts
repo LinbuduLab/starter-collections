@@ -28,7 +28,18 @@ const getPackageJsonContent = (pkg: string) => ({
 
 const getTSConfigContent = (pkg: string) => ({
   extends: '../../tsconfig.base.json',
-  compilerOptions: {},
+  compilerOptions: {
+    target: 'ES2018',
+    module: 'commonjs',
+    lib: ['esnext'],
+    rootDir: 'src',
+    outDir: 'dist',
+    esModuleInterop: true,
+    skipLibCheck: true,
+    declaration: true,
+    emitDecoratorMetadata: true,
+    experimentalDecorators: true,
+  },
   include: ['src'],
 });
 
