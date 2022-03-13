@@ -1,22 +1,19 @@
 {
-  "name": "pnpm-workspace-template",
+  "name": "pnpm-workspace-starter",
+  "private": "true",
   "version": "1.0.0",
-  "description": "Sample pnpm workspace template",
-  "main": "index.js",
   "scripts": {
-    "create-pkg": "ts-node scripts/create-package.ts",
-    "lage": "lage",
-    "changeset:add": "changeset add",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish",
+    "cli": "ts-node -P scripts/tsconfig.script.json scripts/cli.ts",
+    "cs:add": "changeset add",
+    "cs:version": "changeset version",
+    "cs:publish": "changeset publish",
+    "cs:tag": "changeset tag",
     "build:all": "pnpm run build -r",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
-    "ci:publish": "pnpm build:all && pnpm changeset publish",
-    "changeset-publish": "changeset publish",
-    "changeset-tag": "changeset tag"
+    "ci:publish": "pnpm build:all && pnpm changeset publish"
   },
   "repository": {
     "type": "git",

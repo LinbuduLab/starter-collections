@@ -1,0 +1,22 @@
+{
+  "name": "pw-parent1",
+  "version": "5.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -P tsconfig.json",
+    "test": "echo \"Oops!: no test specified\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "pw-child1": "workspace:*",
+    "pw-child2": "workspace:*",
+    "vite": "^2.7.13",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}

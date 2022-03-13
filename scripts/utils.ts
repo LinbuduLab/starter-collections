@@ -6,9 +6,49 @@ import execa from 'execa';
 import preferredPM from 'preferred-pm';
 import { PackageJson } from 'type-fest';
 
+export class Constants {
+  public static get demoOnlyPackages() {
+    return ['child1', 'child2', 'parent1', 'parent2'];
+  }
+
+  public static get preservedDir() {
+    return 'preserved-projects';
+  }
+
+  public static get packagesDir() {
+    return 'tmp-packages';
+  }
+
+  public static get noneIdentifier() {
+    return 'none';
+  }
+
+  public static get cacheDir() {
+    return path.resolve(__dirname, '../node_modules', '.LinbuduLab');
+  }
+
+  public static get packagesCacheDir() {
+    return path.resolve(Constants.cacheDir, 'packages');
+  }
+}
+
 export class CLIUtils {
   public static get existPackages() {
-    return fs.readdirSync(path.resolve(__dirname, '../packages'));
+    return fs.readdirSync(
+      path.resolve(__dirname, '../', Constants.packagesDir)
+    );
+  }
+
+  public static resolvePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.packagesDir, p);
+  }
+
+  public static resolvePreservePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.preservedDir, p);
+  }
+
+  public static resolveCachePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.packagesCacheDir, p);
   }
 
   public static readJsonSync<TParsedContent = Record<string, unknown>>(
@@ -54,6 +94,8 @@ export class CLIUtils {
   ): void {
     const contentStr =
       JSON.stringify(content, null, 2).replace(/\n/g, EOL) + EOL;
+
+    fs.ensureFileSync(filePath);
 
     fs.writeFileSync(filePath, contentStr, options);
   }
