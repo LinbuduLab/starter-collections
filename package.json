@@ -13,7 +13,8 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
-    "ci:publish": "pnpm build:all && pnpm changeset publish"
+    "ci:publish": "pnpm build:all && pnpm changeset publish",
+    "postinstall": "ts-node -P scripts/tsconfig.script.json scripts/postinstall.ts"
   },
   "repository": {
     "type": "git",
