@@ -1,4 +1,117 @@
-# pnpm-workspace-template
+# Starter Collections
+
+Starters collection based on pnpm workspace.
+
+**Note: This is a personal project, it is not community oriented, so the direction of the iteration will be entirely based on the authors' own opinions.**
+
+## Packages
+
+### React
+
+- [Create-React-App](packages/cra-ts)
+- [ESBuild-React-App](packages/esbuild-react-app)
+- [Parcel-React-App](packages/parcel-react/)
+- [Vite-React](packages/vite-react-starter)
+
+### NodeJs
+
+- [NestJs](packages/nest-starter/)
+- [NestJs + GraphQL](packages/nest-graphql-starter/)
+- Nest + Mercurius
+- [MidwayJs](packages/midway-koa)
+- MidwayJs + GraphQL
+- Apollo FullStack
+
+### Lib
+
+- [ESBuild Plugin Starter](packages/esbuild-plugin-starter/)
+- [TypeScript Tool Type](packages/ts-tool-type-starter/)
+- Common Node Library
+- Tsdx based Node Library
+- VS Code Extension
+- [Prisma Starter](packages/prisma-starter)
+- CLI App by CAC
+- GitHub Action
+- Puppeteer
+
+### Framework
+
+- Strapi
+- Blitz
+- Astro
+- StoryBook
+- Lit
+
+## Scripts
+
+### Init
+
+Command: `pnpm cli init`
+
+As pnpm's postinstall hook cannot be interactive, we need to run:
+
+```bash
+pnpm cli init
+```
+
+manually to init workspace.
+
+In fact, all we need to do is to choose some of these projects according to our actual needs.
+
+```bash
+? Choose starters you want to use for this time! …
+✔ cra-ts
+✔ esbuild-plugin-starter
+✔ esbuild-react-app
+✔ midway-koa
+✔ nest-graphql-starter
+✔ nest-starter
+✔ parcel-react
+✔ prisma-starter
+...
+```
+
+Projects that are not selected will be removed from the workspace packages dir `/packages`
+and a backup will be kept in `node_modules/.LinbuduLab`, you can run `pnpm cli reset` to recover these packages,
+or use command `pnpm cli copy` to add removed packages back:
+
+```bash
+✔ Choose starters you want to copy into workspace · esbuild-plugin-starter, esbuild-react-app
+✔ Rename package esbuild-plugin-starter · esbuild-plugin-boom
+? Rename package esbuild-react-app › esbuild-react-todo
+```
+
+### Reset
+
+Command: `pnpm cli reset`
+
+This command recovers all the original packages,
+and does not overwrite the already existing projects.
+
+Useful when you want to start from scratch.
+
+### Copy
+
+Command: `pnpm cli copy`
+
+This command can be useful when you want to have multiple projects based on the same initial template(starter),
+for example you may want to develop several ESBuild plugins inside one workspace.
+
+After you have selected the items you want to copy, you also need to rename them, which will be used to update `name` field in `package.json`.
+
+```bash
+✔ Choose starters you want to copy into workspace · esbuild-plugin-starter, esbuild-react-app
+✔ Rename package esbuild-plugin-starter · esbuild-plugin-boom
+? Rename package esbuild-react-app › esbuild-react-todo
+```
+
+### Create
+
+Command: `pnpm cli create`
+
+This command creates a simple TypeScript starter with minimal essential scripts for you.
+
+### pnpm commands
 
 Common commands:
 
