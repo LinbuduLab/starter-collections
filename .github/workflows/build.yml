@@ -27,4 +27,4 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build
         run: |
-          pnpm build -r --if-present
+          pnpm build:all

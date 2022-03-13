@@ -8,7 +8,7 @@
     "cs:version": "changeset version",
     "cs:publish": "changeset publish",
     "cs:tag": "changeset tag",
-    "build:all": "pnpm run build -r --filter='pw-*'",
+    "build:all": "pnpm run build -r --filter='pw-*' --if-present",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
