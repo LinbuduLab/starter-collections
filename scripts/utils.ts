@@ -134,7 +134,7 @@ export class CLIUtils {
     CLIUtils.writeJsonSync(absPath, updated);
   }
 
-  public modifyPackageJSON(
+  public static modifyPackageJSON(
     pkgJsonPath: string,
     field: string,
     content: any,

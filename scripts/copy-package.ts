@@ -5,6 +5,7 @@ import enquirer from 'enquirer';
 import chalk from 'chalk';
 import { CLIUtils, Constants } from './utils';
 import consola from 'consola';
+import path from 'path';
 
 // raw, renamed
 type Raw2RenamedTuple = [string, string];
@@ -30,8 +31,6 @@ export default function useCopyPackageFromCacheDir(cli: CAC) {
         name: 'packagesToCopy',
         message: 'Choose starters you want to copy into workspace',
       });
-
-      console.log('packagesToCopy: ', packagesToCopy);
 
       const tasks: Array<Raw2RenamedTuple> = [];
 
@@ -60,6 +59,10 @@ export default function useCopyPackageFromCacheDir(cli: CAC) {
         );
 
         fs.copySync(source, dest);
+
+        const destPkgJsonPath = path.join(dest, 'package.json');
+
+        CLIUtils.modifyPackageJSON(destPkgJsonPath, 'name', renamed);
       }
     });
 }
