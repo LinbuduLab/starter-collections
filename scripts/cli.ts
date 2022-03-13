@@ -6,6 +6,7 @@ import { CLIHooks } from './hooks';
 import useInitWorkspaceAfterInstall from './init-workspace';
 import useResetWorkspacePackages from './reset-workspace';
 import useCreateSimplePackage from './create-package';
+import useCopyPackage from './copy-package';
 
 const cli = cac('LinbuduLab-Starter');
 
@@ -16,6 +17,7 @@ CLIHooks.pre();
 useInitWorkspaceAfterInstall(cli);
 useResetWorkspacePackages(cli);
 useCreateSimplePackage(cli);
+useCopyPackage(cli);
 
 cli.help();
 cli.parse();

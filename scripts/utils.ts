@@ -39,6 +39,12 @@ export class CLIUtils {
     );
   }
 
+  public static get cachedPackages() {
+    return fs.readdirSync(
+      path.resolve(__dirname, '../', Constants.packagesCacheDir)
+    );
+  }
+
   public static get resolvedPackageRootDir() {
     return path.resolve(__dirname, '../', Constants.packagesDir);
   }
