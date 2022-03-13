@@ -16,7 +16,7 @@ export class Constants {
   }
 
   public static get packagesDir() {
-    return 'tmp-packages';
+    return 'packages';
   }
 
   public static get noneIdentifier() {
@@ -37,6 +37,10 @@ export class CLIUtils {
     return fs.readdirSync(
       path.resolve(__dirname, '../', Constants.packagesDir)
     );
+  }
+
+  public static get resolvedPackageRootDir() {
+    return path.resolve(__dirname, '../', Constants.packagesDir);
   }
 
   public static resolvePackageDir(p: string) {

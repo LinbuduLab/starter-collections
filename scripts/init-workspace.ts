@@ -1,12 +1,3 @@
-/**
- * initWorkspace Handler
- * @LinbuduLab
- *
- * choose the package you want to preserve
- * move left projects to /preserved
- *
- */
-
 import { CAC } from 'cac';
 import fs from 'fs-extra';
 import enquirer from 'enquirer';
@@ -40,9 +31,8 @@ export default function useInitWorkspaceAfterInstall(cli: CAC) {
 
       for (const project of excluded) {
         const projectSrcPath = CLIUtils.resolvePackageDir(project);
-        const projectDestPath = CLIUtils.resolvePreservePackageDir(project);
 
-        fs.moveSync(projectSrcPath, projectDestPath);
+        fs.removeSync(projectSrcPath);
       }
     });
 }

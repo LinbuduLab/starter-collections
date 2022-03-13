@@ -5,7 +5,7 @@ import { CAC } from 'cac';
 import { CLIUtils, Constants } from './utils';
 
 const getInitialContent = (pkg: string) => `
-console.log("'${pkg}' is ready!");
+console.log("${pkg} is ready!");
 `;
 
 const getPackageJsonContent = (pkg: string) => ({
