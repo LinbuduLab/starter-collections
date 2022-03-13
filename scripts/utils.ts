@@ -5,6 +5,7 @@ import path from 'path';
 import execa from 'execa';
 import preferredPM from 'preferred-pm';
 import { PackageJson } from 'type-fest';
+import _ from 'lodash';
 
 export class Constants {
   public static get demoOnlyPackages() {
@@ -29,6 +30,31 @@ export class Constants {
 
   public static get packagesCacheDir() {
     return path.resolve(Constants.cacheDir, 'packages');
+  }
+
+  /**
+   * colors: {@link https://revel-in-color.vercel.app/}
+   * @returns
+   */
+  public static get starterInfoMap() {
+    return {
+      nest: {
+        keywords: ['nest'],
+        color: '#c04851',
+      },
+      vite: {
+        keywords: ['vite', 'vitest'],
+        color: '#0095b6',
+      },
+      graphql: {
+        keywords: ['graphql', 'apollo'],
+        color: '#4682b4',
+      },
+      react: {
+        keywords: ['cra', 'react'],
+        color: '#248067',
+      },
+    };
   }
 }
 
@@ -59,6 +85,16 @@ export class CLIUtils {
 
   public static resolveCachePackageDir(p: string) {
     return path.resolve(__dirname, '../', Constants.packagesCacheDir, p);
+  }
+
+  public static findInfoFromKeywords(input: string) {
+    const inputFragment = input.split('-');
+    for (const info of Object.values(Constants.starterInfoMap)) {
+      if (_.intersection(inputFragment, info.keywords).length > 0) {
+        return info;
+      }
+    }
+    return null;
   }
 
   public static readJsonSync<TParsedContent = Record<string, unknown>>(
