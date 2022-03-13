@@ -1,0 +1,8 @@
+/node_modules/
+/.cache/
+/dist/
+/coverage/
+yarn-error.log
+.TODO
+/TODO
+.parcel-cache

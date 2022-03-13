@@ -1,0 +1,250 @@
+import consola from 'consola';
+import fs, { Mode } from 'fs-extra';
+import { EOL } from 'os';
+import path from 'path';
+import execa from 'execa';
+import preferredPM from 'preferred-pm';
+import { PackageJson } from 'type-fest';
+import _ from 'lodash';
+
+export class Constants {
+  public static get demoOnlyPackages() {
+    return ['child1', 'child2', 'parent1', 'parent2'];
+  }
+
+  public static get preservedDir() {
+    return 'preserved-projects';
+  }
+
+  public static get packagesDir() {
+    return 'packages';
+  }
+
+  public static get noneIdentifier() {
+    return 'none';
+  }
+
+  public static get cacheDir() {
+    return path.resolve(__dirname, '../node_modules', '.LinbuduLab');
+  }
+
+  public static get packagesCacheDir() {
+    return path.resolve(Constants.cacheDir, 'packages');
+  }
+
+  /**
+   * colors: {@link https://revel-in-color.vercel.app/}
+   * @returns
+   */
+  public static get starterInfoMap() {
+    return {
+      nest: {
+        keywords: ['nest'],
+        color: '#c04851',
+      },
+      vite: {
+        keywords: ['vite', 'vitest'],
+        color: '#0095b6',
+      },
+      graphql: {
+        keywords: ['graphql', 'apollo'],
+        color: '#4682b4',
+      },
+      react: {
+        keywords: ['cra', 'react'],
+        color: '#248067',
+      },
+    };
+  }
+}
+
+export class CLIUtils {
+  public static get existPackages() {
+    return fs.readdirSync(
+      path.resolve(__dirname, '../', Constants.packagesDir)
+    );
+  }
+
+  public static get cachedPackages() {
+    return fs.readdirSync(
+      path.resolve(__dirname, '../', Constants.packagesCacheDir)
+    );
+  }
+
+  public static get resolvedPackageRootDir() {
+    return path.resolve(__dirname, '../', Constants.packagesDir);
+  }
+
+  public static resolvePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.packagesDir, p);
+  }
+
+  public static resolvePreservePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.preservedDir, p);
+  }
+
+  public static resolveCachePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.packagesCacheDir, p);
+  }
+
+  public static findInfoFromKeywords(input: string) {
+    const inputFragment = input.split('-');
+    for (const info of Object.values(Constants.starterInfoMap)) {
+      if (_.intersection(inputFragment, info.keywords).length > 0) {
+        return info;
+      }
+    }
+    return null;
+  }
+
+  public static readJsonSync<TParsedContent = Record<string, unknown>>(
+    filePath: string,
+    options?: {
+      encoding?: null | undefined;
+      flag?: string | undefined;
+      throw?: boolean;
+      parserOptions?: string;
+      reviver?: (key: string, value: any) => any;
+    } | null
+  ): TParsedContent {
+    const content = fs
+      .readFileSync(filePath, {
+        ...options,
+        encoding: 'utf-8',
+      })
+      .replace(/^\uFEFF/, '');
+
+    let parsed: any;
+
+    try {
+      parsed = JSON.parse(content, options?.reviver);
+    } catch (error: any) {
+      if (options?.throw) {
+        error.message = `${filePath}: ${error.message}`;
+        throw error;
+      } else {
+        return {} as TParsedContent;
+      }
+    }
+
+    return parsed;
+  }
+
+  public static writeJsonSync<TContent = Record<string, unknown>>(
+    filePath: string,
+    content: TContent,
+    options?: {
+      mode?: Mode | undefined;
+      flag?: string | undefined;
+    }
+  ): void {
+    const contentStr =
+      JSON.stringify(content, null, 2).replace(/\n/g, EOL) + EOL;
+
+    fs.ensureFileSync(filePath);
+
+    fs.writeFileSync(filePath, contentStr, options);
+  }
+
+  public static ensureAbsolutePath(
+    input: string,
+    cwd: string = process.cwd()
+  ): string {
+    return path.isAbsolute(input) ? input : path.resolve(input, cwd);
+  }
+
+  public static modifyJson<
+    TRawContent = Record<string, unknown>,
+    TUpdatedContent = Record<string, unknown>
+  >(filePath: string, modifier: (content: TRawContent) => TUpdatedContent) {
+    const absPath = CLIUtils.ensureAbsolutePath(filePath);
+
+    const raw = CLIUtils.readJsonSync<TRawContent>(absPath);
+
+    if (!raw) {
+      return;
+    }
+
+    const updated = modifier(raw);
+
+    CLIUtils.writeJsonSync(absPath, updated);
+  }
+
+  public static modifyPackageJSON(
+    pkgJsonPath: string,
+    field: string,
+    content: any,
+    options?: {
+      mergeObject?: boolean;
+    }
+  ) {
+    CLIUtils.modifyJson<PackageJson, PackageJson>(pkgJsonPath, (pkg) => {
+      const prevFieldContent = pkg[field as keyof PackageJson] as any;
+
+      if (prevFieldContent && typeof prevFieldContent === 'object') {
+        const updatedFieldContent =
+          options?.mergeObject ?? true
+            ? {
+                ...prevFieldContent,
+                ...content,
+              }
+            : content;
+        pkg = {
+          ...pkg,
+          [field]: updatedFieldContent,
+        };
+      } else {
+        pkg = {
+          ...pkg,
+          [field]: content,
+        };
+      }
+      return pkg;
+    });
+  }
+
+  public static async useChildProcess(
+    command: string,
+    options?: execa.Options
+  ) {
+    consola.info(`Executing command: ${command} \n`);
+
+    await execa(command, {
+      stdio: 'inherit',
+      shell: true,
+      preferLocal: true,
+      ...(options ?? {}),
+    });
+
+    consola.info(`Execution finished.\n`);
+  }
+
+  public static ensureArray<T>(array: T | T[]): T[] {
+    return Array.isArray(array) ? array : [array];
+  }
+
+  public static async installDeps(
+    deps: Partial<Record<'deps' | 'devDeps', string | string[]>>,
+    extraArgs: string = ''
+  ) {
+    const pm = await preferredPM(process.cwd());
+    const m = pm?.name ?? 'pnpm';
+    const installCommand = pm?.name === 'yarn' ? 'add' : 'install';
+
+    // deps
+    deps.deps &&
+      (await this.useChildProcess(
+        `${m} ${installCommand} ${CLIUtils.ensureArray(deps.deps).join(
+          ' '
+        )} ${extraArgs}`
+      ));
+
+    // devDeps
+    deps.devDeps &&
+      (await this.useChildProcess(
+        `${m} ${installCommand} ${CLIUtils.ensureArray(deps.devDeps).join(
+          ' '
+        )} --save-dev ${extraArgs}`
+      ));
+  }
+}
