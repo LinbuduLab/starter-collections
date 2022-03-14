@@ -2,7 +2,6 @@
 
 ## Incoming Starters
 
-- CAC
 - Apollo Client
 - Apollo Server -> Nexus / TypeGraphQL
 - Astro
@@ -10,11 +9,10 @@
 - VS Code Extension
 - StoryBook
 - Lit
-- GitHub Action
+- GitHub Actions
 - MidwayJS + GraphQL
 - Mecurius
 - Puppeteer
-- Blitz
 - Strapi + GraphQL
 - Mobx -> React
 - MobxStateTree + GraphQL
