@@ -38,6 +38,10 @@ export class Constants {
    */
   public static get starterInfoMap() {
     return {
+      graphql: {
+        keywords: ['graphql', 'apollo'],
+        color: '#a31970',
+      },
       nest: {
         keywords: ['nest'],
         color: '#c04851',
@@ -46,13 +50,25 @@ export class Constants {
         keywords: ['vite', 'vitest'],
         color: '#0095b6',
       },
-      graphql: {
-        keywords: ['graphql', 'apollo'],
-        color: '#4682b4',
-      },
       react: {
         keywords: ['cra', 'react'],
         color: '#248067',
+      },
+      midway: {
+        keywords: ['midway'],
+        color: '#407d53',
+      },
+      esbuild: {
+        keywords: ['esbuild'],
+        color: '#fed71a',
+      },
+      node: {
+        keywords: ['prisma', 'strapi'],
+        color: '#c6dfc8',
+      },
+      other: {
+        keywords: [],
+        color: '#dae3e6',
       },
     };
   }

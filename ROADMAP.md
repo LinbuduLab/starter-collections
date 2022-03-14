@@ -11,7 +11,6 @@
 - StoryBook
 - Lit
 - GitHub Action
-- tsdx
 - MidwayJS + GraphQL
 - Mecurius
 - Puppeteer
@@ -26,3 +25,6 @@
 - Nest + GraphQL
 
 ## Scripts
+
+- enable git-cz related?
+- use release-it ?
