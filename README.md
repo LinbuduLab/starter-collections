@@ -84,8 +84,7 @@ or use command `pnpm cli copy` to add removed packages back:
 
 Command: `pnpm cli reset`
 
-This command recovers all the original packages,
-and does not overwrite the already existing projects.
+This command recovers all the original packages, and does not overwrite the already existing projects.
 
 Useful when you want to start from scratch.
 
@@ -93,8 +92,7 @@ Useful when you want to start from scratch.
 
 Command: `pnpm cli copy`
 
-This command can be useful when you want to have multiple projects based on the same initial template(starter),
-for example you may want to develop several ESBuild plugins inside one workspace.
+This command can be useful when you want to have multiple projects based on the same initial template(starter), for example you may want to develop several ESBuild plugins inside one workspace.
 
 After you have selected the items you want to copy, you also need to rename them, which will be used to update `name` field in `package.json`.
 
@@ -103,6 +101,22 @@ After you have selected the items you want to copy, you also need to rename them
 ✔ Rename package esbuild-plugin-starter · esbuild-plugin-boom
 ? Rename package esbuild-react-app › esbuild-react-todo
 ```
+
+### Rename
+
+Command: `pnpm cli rename`
+
+Select starters and rename them(dir and `package.json` name field).
+
+Useful when you want to rename some packages to be actually used.
+
+### Cache
+
+Command: `pnpm cli cache`
+
+Cache all initial workspacr packages to cache dir. This will be executed in `postinstall` hook.
+
+You can also execute command manually to cache some extra changes.
 
 ### Create
 
