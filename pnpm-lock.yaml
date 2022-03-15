@@ -647,6 +647,12 @@ importers:
       '@types/react-dom': 17.0.13
       typescript: 4.6.2
 
+  packages/vite-plugin-starter:
+    specifiers:
+      vite: ^2.7.2
+    devDependencies:
+      vite: 2.8.6
+
   packages/vite-react-starter:
     specifiers:
       '@types/react': ^17.0.33
