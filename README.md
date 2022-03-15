@@ -13,32 +13,31 @@ Starters collection based on pnpm workspace.
 - [Parcel-React-App](packages/parcel-react/)
 - [Vite-React](packages/vite-react-starter)
 
-### NodeJs
+### NodeJs Server
 
 - [NestJs](packages/nest-starter/)
 - [NestJs + GraphQL](packages/nest-graphql-starter/)
-- Nest + Mercurius
+- [Mercurius](packages/mercurius-starter/)
+- [Nest + Mercurius](packages/nest-mercurius-starter/)
 - [MidwayJs](packages/midway-koa)
+- [Strapi(with GraphQL)](packages/strapi-graphql-starter/)
 - MidwayJs + GraphQL
-- Apollo FullStack
+- Apollo Server
 
 ### Lib
 
 - [ESBuild Plugin Starter](packages/esbuild-plugin-starter/)
 - [TypeScript Tool Type](packages/ts-tool-type-starter/)
-- Common Node Library
-- Tsdx based Node Library
-- VS Code Extension
+- [Common Node Library](packages/node-lib-starter/)
 - [Prisma Starter](packages/prisma-starter)
-- CLI App by CAC
+- [CLI App by CAC](packages/cac-cli-starter/)
 - GitHub Action
-- Puppeteer
+- [Puppeteer](packages/puppeteer-starter)
 
 ### Framework
 
-- Strapi
-- Blitz
-- Astro
+- [Astro](packages/astro-docs-starter)
+- [Umi](packages/umi-starter/)
 - StoryBook
 - Lit
 
