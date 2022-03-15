@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blogs",
+  "info": {
+    "singularName": "blog",
+    "pluralName": "blogs",
+    "displayName": "Blog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Body": {
+      "type": "string"
+    },
+    "Date": {
+      "type": "date"
+    },
+    "PostType": {
+      "type": "enumeration",
+      "enum": [
+        "Note",
+        "Source",
+        "Explore",
+        "Sample"
+      ],
+      "default": "Note"
+    }
+  }
+}

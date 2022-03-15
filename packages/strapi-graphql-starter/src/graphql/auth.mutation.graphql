@@ -1,0 +1,25 @@
+fragment LoginPayload on UsersPermissionsLoginPayload {
+  jwt
+  user {
+    username
+    email
+  }
+}
+
+mutation Auth {
+  registerUser: register(
+    input: {
+      username: "linbudu"
+      email: "linbudu@gmail.com"
+      password: "password"
+    }
+  ) {
+    ...LoginPayload
+  }
+
+  loginUser: login(
+    input: { identifier: "linbudu@gmail.com", password: "password" }
+  ) {
+    ...LoginPayload
+  }
+}

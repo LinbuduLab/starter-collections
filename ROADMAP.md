@@ -12,9 +12,11 @@
 - GitHub Actions
 - MidwayJS + GraphQL
 - Mecurius
-- Puppeteer
+- UmiJS
 - Strapi + GraphQL
 - Mobx -> React
+- GCG
+- GenQL
 - MobxStateTree + GraphQL
 
 ## Hydration
