@@ -24,3 +24,5 @@
 
 - enable git-cz related?
 - use release-it?
+- release helper, take advantage from ... >>> workflow enhancement packages
+- npm package development helper
