@@ -16,17 +16,26 @@ Starters collection based on pnpm workspace.
 ### NodeJs Server
 
 - [NestJs](packages/nest-starter/)
-- [NestJs + GraphQL](packages/nest-graphql-starter/)
 - [Mercurius](packages/mercurius-starter/)
-- [Nest + Mercurius](packages/nest-mercurius-starter/)
 - [MidwayJs](packages/midway-koa)
+
+### GraphQL
+
+- [NestJs + GraphQL](packages/nest-graphql-starter/)
+- [Nest + Mercurius](packages/nest-mercurius-starter/)
 - [Strapi(with GraphQL)](packages/strapi-graphql-starter/)
 - MidwayJs + GraphQL
+- Apollo Element
+- Apollo Client
 - Apollo Server
+- Envelop Plugin Starter
+- Apollo Plugin Starter
+- GraphQL Code Generator
 
 ### Lib
 
 - [ESBuild Plugin Starter](packages/esbuild-plugin-starter/)
+- [Vite Plugin Starter](packages/vite-plugin-starter)
 - [TypeScript Tool Type](packages/ts-tool-type-starter/)
 - [Common Node Library](packages/node-lib-starter/)
 - [Prisma Starter](packages/prisma-starter)
@@ -36,10 +45,16 @@ Starters collection based on pnpm workspace.
 
 ### Framework
 
-- [Astro](packages/astro-docs-starter)
+- [Astro](packages/astro-generic-starter)
 - [Umi](packages/umi-starter/)
 - StoryBook
 - Lit
+
+### Documentation
+
+- [Astro](packages/astro-docs-starter)
+- [VitePress](packages/vitepress-starter)
+- GitBook
 
 ## Scripts
 
@@ -123,6 +138,18 @@ You can also execute command manually to cache some extra changes.
 Command: `pnpm cli create`
 
 This command creates a simple TypeScript starter with minimal essential scripts for you.
+
+### Fork
+
+Command: `pnpm cli fork [workspace name] <forked worksapce dir>`.
+
+This command will create a fork of the current workspace at specified directory. If destination directory is not specified, it will use `../tmp/forked` as default.
+
+### Release
+
+> WIP
+
+Command: `pnpm cli release [project] --minor --skip-git-checks --changelog`
 
 ### pnpm commands
 
