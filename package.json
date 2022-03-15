@@ -14,7 +14,8 @@
     "docs:serve": "vitepress serve docs",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "pnpm build:all && pnpm changeset publish",
-    "postinstall": "ts-node -P scripts/tsconfig.script.json scripts/postinstall.ts"
+    "remind": "ts-node -P scripts/tsconfig.script.json scripts/postinstall-reminder.ts",
+    "postinstall": "ts-node -P scripts/tsconfig.script.json scripts/cli.ts cache && pnpm remind"
   },
   "repository": {
     "type": "git",
