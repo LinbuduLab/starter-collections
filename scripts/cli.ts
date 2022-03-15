@@ -10,6 +10,7 @@ import useCopyPackage from './copy-package';
 import useCachePackage from './cache-package';
 import useRenameWorkspacePackage from './rename-package';
 import useForkWorkspace from './fork-workspace';
+import useReleaseProject from './release';
 
 const cli = cac('LinbuduLab-Starter');
 
@@ -24,6 +25,7 @@ useCopyPackage(cli);
 useCachePackage(cli);
 useRenameWorkspacePackage(cli);
 useForkWorkspace(cli);
+useReleaseProject(cli);
 
 cli.help();
 cli.parse();
