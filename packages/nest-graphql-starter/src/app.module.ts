@@ -1,10 +1,22 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+
+import { upperDirectiveTransformer } from './directives/upper-case';
+import { RecipesModule } from './graphql/module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    RecipesModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      debug: true,
+      playground: true,
+      autoSchemaFile: 'schema.gql',
+      transformSchema: (schema) => upperDirectiveTransformer(schema, 'upper'),
+      sortSchema: true,
+      installSubscriptionHandlers: true,
+    }),
+  ],
 })
 export class AppModule {}
