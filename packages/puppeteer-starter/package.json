@@ -1,0 +1,18 @@
+{
+  "name": "puppeteer-starter",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsnd --respawn --transpile-only src/index.ts",
+    "dev:cluster": "tsnd --respawn --transpile-only src/cluster.ts",
+    "watch": "tsc --watch",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "puppeteer": "^13.5.1",
+    "puppeteer-cluster": "^0.23.0"
+  }
+}
