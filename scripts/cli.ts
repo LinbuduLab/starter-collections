@@ -8,6 +8,7 @@ import useResetWorkspacePackages from './reset-workspace';
 import useCreateSimplePackage from './create-package';
 import useCopyPackage from './copy-package';
 import useCachePackage from './cache-package';
+import useRenameWorkspacePackage from './rename-package';
 
 const cli = cac('LinbuduLab-Starter');
 
@@ -20,6 +21,7 @@ useResetWorkspacePackages(cli);
 useCreateSimplePackage(cli);
 useCopyPackage(cli);
 useCachePackage(cli);
+useRenameWorkspacePackage(cli);
 
 cli.help();
 cli.parse();

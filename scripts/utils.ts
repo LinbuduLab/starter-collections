@@ -6,6 +6,8 @@ import execa from 'execa';
 import preferredPM from 'preferred-pm';
 import { PackageJson } from 'type-fest';
 import _ from 'lodash';
+import enquirer from 'enquirer';
+import chalk from 'chalk';
 
 export class Constants {
   public static get demoOnlyPackages() {
@@ -74,6 +76,10 @@ export class Constants {
   }
 }
 
+type Tmp<Name> = {
+  Name: string[];
+};
+
 export class CLIUtils {
   public static get existPackages() {
     return fs.readdirSync(
@@ -111,6 +117,41 @@ export class CLIUtils {
       }
     }
     return null;
+  }
+
+  public static async createPackageMultiSelector<T extends string>(
+    name: T,
+    message: string,
+    color = true
+  ): Promise<string[]> {
+    const existPackages = CLIUtils.existPackages;
+
+    const res = await enquirer.prompt<Record<T, string[]>>({
+      type: 'multiselect',
+      choices: color
+        ? existPackages.map((p) => {
+            return {
+              name: p,
+              value: p,
+              message: color
+                ? chalk.hex(
+                    (
+                      CLIUtils.findInfoFromKeywords(p) ??
+                      Constants.starterInfoMap['other']
+                    ).color
+                  )(p)
+                : p,
+            };
+          })
+        : existPackages,
+      muliple: true,
+      sort: true,
+      scroll: true,
+      name,
+      message,
+    });
+
+    return res[name];
   }
 
   public static readJsonSync<TParsedContent = Record<string, unknown>>(

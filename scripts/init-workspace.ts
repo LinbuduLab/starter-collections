@@ -1,7 +1,5 @@
 import { CAC } from 'cac';
 import fs from 'fs-extra';
-import enquirer from 'enquirer';
-import chalk from 'chalk';
 import { CLIUtils, Constants } from './utils';
 
 export default function useInitWorkspaceAfterInstall(cli: CAC) {
@@ -12,29 +10,15 @@ export default function useInitWorkspaceAfterInstall(cli: CAC) {
     .action(async () => {
       const existPackages = CLIUtils.existPackages;
 
-      const { preserveStarter } = await enquirer.prompt<{
-        preserveStarter: string[];
-      }>({
-        type: 'multiselect',
-        choices: existPackages.map((p) => {
-          const color = CLIUtils.findInfoFromKeywords(p)?.color ?? null;
+      const chosedStarters = await CLIUtils.createPackageMultiSelector(
+        'chosedStarters',
+        'Pick starters to initialize workspace',
+        true
+      );
 
-          return {
-            name: p,
-            value: p,
-            message: color ? chalk.hex(color)(p) : p,
-          };
-        }),
-        muliple: true,
-        sort: true,
-        scroll: true,
-        name: 'preserveStarter',
-        message: 'Choose starters you want to use for this time!',
-      });
-
-      const excluded = preserveStarter.includes(Constants.noneIdentifier)
+      const excluded = chosedStarters.includes(Constants.noneIdentifier)
         ? existPackages
-        : existPackages.filter((p) => !preserveStarter.includes(p));
+        : existPackages.filter((p) => !chosedStarters.includes(p));
 
       for (const project of excluded) {
         const projectSrcPath = CLIUtils.resolvePackageDir(project);
