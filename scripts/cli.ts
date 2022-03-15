@@ -11,6 +11,7 @@ import useCachePackage from './cache-package';
 import useRenameWorkspacePackage from './rename-package';
 import useForkWorkspace from './fork-workspace';
 import useReleaseProject from './release';
+import useUpdatePackageDependencies from './update-dep-version';
 
 const cli = cac('LinbuduLab-Starter');
 
@@ -26,6 +27,7 @@ useCachePackage(cli);
 useRenameWorkspacePackage(cli);
 useForkWorkspace(cli);
 useReleaseProject(cli);
+useUpdatePackageDependencies(cli);
 
 cli.help();
 cli.parse();

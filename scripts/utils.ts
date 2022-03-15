@@ -34,6 +34,10 @@ export class Constants {
     return path.resolve(Constants.cacheDir, 'packages');
   }
 
+  public static get internalRegistry() {
+    return 'https://registry.npmmirror.com';
+  }
+
   /**
    * colors: {@link https://revel-in-color.vercel.app/}
    * @returns
@@ -107,6 +111,20 @@ export class CLIUtils {
 
   public static resolveCachePackageDir(p: string) {
     return path.resolve(__dirname, '../', Constants.packagesCacheDir, p);
+  }
+
+  public static existWorkspacePackageFilter(projects: string[], blur = false) {
+    const existPackages = CLIUtils.existPackages;
+
+    const matcher = blur
+      ? existPackages.map((p) => p.split('-')).flat(Infinity)
+      : existPackages;
+
+    const matched = projects.filter((p) => matcher.includes(p));
+
+    return blur
+      ? existPackages.filter((p) => matched.some((m) => p.includes(m)))
+      : matched;
   }
 
   public static findInfoFromKeywords(input: string) {
