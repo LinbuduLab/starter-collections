@@ -47,6 +47,8 @@
     "fs-extra": "^10.0.1",
     "jsonfile": "^6.1.0",
     "minimist": "^1.2.5",
+    "nanoid": "^3.3.1",
+    "ora": "^5.0.0",
     "preferred-pm": "^3.0.3",
     "prettier": "^2.5.1",
     "prompts": "^2.4.2",

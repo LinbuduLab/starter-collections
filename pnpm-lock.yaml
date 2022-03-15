@@ -27,6 +27,8 @@ importers:
       jsonfile: ^6.1.0
       lodash: ^4.17.21
       minimist: ^1.2.5
+      nanoid: ^3.3.1
+      ora: ^5.0.0
       preferred-pm: ^3.0.3
       prettier: ^2.5.1
       prompts: ^2.4.2
@@ -57,6 +59,8 @@ importers:
       fs-extra: 10.0.1
       jsonfile: 6.1.0
       minimist: 1.2.5
+      nanoid: 3.3.1
+      ora: 5.4.1
       preferred-pm: 3.0.3
       prettier: 2.5.1
       prompts: 2.4.2
@@ -23886,11 +23890,6 @@ packages:
     resolution: {integrity: sha512-wynEP02LmIbLpcYw8uBKpcfF6dmg2vcpKqxeH5UcoKEYdExslsdUA4ugFauuaeYdTB76ez6gJW8XAZ6CgkXYxA==}
     dev: false
 
-  /nanoid/3.2.0:
-    resolution: {integrity: sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   /nanoid/3.3.1:
     resolution: {integrity: sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -27650,7 +27649,7 @@ packages:
     resolution: {integrity: sha512-OovjwIzs9Te46vlEx7+uXB0PLijpwjXGKXjVGGPIGubGpq7uh5Xgf6D6FiJ/SzJMBosHDp6a2hiXOS97iBXcaA==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.2.0
+      nanoid: 3.3.1
       picocolors: 1.0.0
       source-map-js: 1.0.2
 

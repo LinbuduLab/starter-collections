@@ -119,6 +119,16 @@ export class CLIUtils {
     return null;
   }
 
+  public static async createConfirmSelector(message: string): Promise<boolean> {
+    const res = await enquirer.prompt<Record<'confirm', boolean>>({
+      type: 'confirm',
+      name: 'confirm',
+      message,
+    });
+
+    return res.confirm;
+  }
+
   public static async createPackageMultiSelector<T extends string>(
     name: T,
     message: string,
@@ -264,7 +274,8 @@ export class CLIUtils {
     command: string,
     options?: execa.Options
   ) {
-    consola.info(`Executing command: ${command} \n`);
+    console.log('');
+    consola.info(`Executing command: ${chalk.cyan(command)}`);
 
     await execa(command, {
       stdio: 'inherit',
