@@ -2,14 +2,24 @@
 
 Starters collection based on pnpm workspace.
 
-**Note: This is a personal project, it is not community oriented, so the direction of the iteration will be entirely based on the authors' own opinions.**
+**Note: This is a personal project, it is NOT community oriented, so the direction of the iteration will be entirely based on the authors' own opinions.**
 
 ## Getting Started
 
 - [Use this template](https://github.com/LinbuduLab/starter-collections/generate) and clone it.
-- **Do not run `pnpm install` at once**, run `pnpm init:workspace` to only install dependencies which is required by CLI.
+- **Do not run `pnpm install` immediately**, run `pnpm init:workspace` to only install dependencies which is required by CLI.
 - Pick your starters.
-- Move on! 
+- Move on!
+
+Also, you can use `degit` to clone internal workspace packages directly:
+
+```bash
+pnpx degit https://github.com/LinbuduLab/starter-collections/packages/cac-cli-starter ./my-awesome-cli
+
+pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> <dir>
+```
+
+
 
 ## Packages
 
@@ -18,7 +28,7 @@ Starters collection based on pnpm workspace.
 - [Create-React-App](packages/cra-ts)
 - [ESBuild-React-App](packages/esbuild-react-app)
 - [Parcel-React-App](packages/parcel-react/)
-- [Vite-React](packages/vite-react-starter)
+- [Vite-React-App](packages/vite-react-starter)
 
 ### NodeJs Server
 
@@ -46,7 +56,7 @@ Starters collection based on pnpm workspace.
 - [TypeScript Tool Type](packages/ts-tool-type-starter/)
 - [Common Node Library](packages/node-lib-starter/)
 - [Prisma Starter](packages/prisma-starter)
-- [CLI App by CAC](packages/cac-cli-starter/)
+- [CLI App by CAC](packages/cac-cli-starter/), with common CLI tools.
 - GitHub Action
 - [Puppeteer](packages/puppeteer-starter)
 
