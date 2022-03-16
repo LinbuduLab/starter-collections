@@ -1,4 +1,0 @@
-type Mutation {
-  add(x: Int!, y: Int!): Int!
-  createNotification(message: String!): Boolean!
-}

@@ -1,4 +1,0 @@
-type Dog {
-  name: String!
-  owner: Human
-}

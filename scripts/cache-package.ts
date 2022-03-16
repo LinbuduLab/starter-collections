@@ -10,7 +10,7 @@ export default function useCachePackage(cli: CAC) {
     .command('cache', 'cache current workspace packages to cache directory')
     .option('-p,--preserve', 'preserve when package cache directory exists')
     .option('--no-preserve', 'override exist package cache')
-    .action(async (options: { preserve: boolean }) => {
+    .action(async ({ preserve = true }: { preserve: boolean }) => {
       fs.ensureDirSync(CLIUtils.resolvedPackageRootDir);
       const existPackages = CLIUtils.existPackages;
 
@@ -18,23 +18,26 @@ export default function useCachePackage(cli: CAC) {
         const projectSrcPath = CLIUtils.resolvePackageDir(p);
         const projectDestPath = CLIUtils.resolveCachePackageDir(p);
 
-        if (fs.existsSync(projectDestPath) && options.preserve) {
+        if (fs.existsSync(projectDestPath) && preserve) {
           consola.info(
-            `[Skip]Cached package ${chalk.green(p)} will be preserved.`
+            `[Skip] Cached package ${chalk.green(p)} will be preserved.`
           );
           continue;
         }
 
-        fs.copySync(projectSrcPath, projectDestPath, {
-          recursive: true,
-          filter: (src, dest) => {
-            const filtered = ['node_modules', 'dist', 'tmp'].every(
-              (pattern) => !src.includes(pattern)
-            );
+        CLIUtils.copySyncWithFilter(projectSrcPath, projectDestPath);
 
-            return filtered;
-          },
-        });
+        const projectFixtureCachePath =
+          CLIUtils.resolveFixtureCachePackageDir(p);
+
+        CLIUtils.copySyncWithFilter(
+          projectSrcPath,
+          projectFixtureCachePath,
+          undefined,
+          {
+            overwrite: true,
+          }
+        );
 
         consola.success(`Package ${chalk.green(p)} cached.`);
       }

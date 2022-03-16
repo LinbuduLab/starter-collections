@@ -1,5 +1,5 @@
 import consola from 'consola';
-import fs, { Mode } from 'fs-extra';
+import fs, { CopyOptionsSync, Mode } from 'fs-extra';
 import { EOL } from 'os';
 import path from 'path';
 import execa from 'execa';
@@ -32,6 +32,10 @@ export class Constants {
 
   public static get packagesCacheDir() {
     return path.resolve(Constants.cacheDir, 'packages');
+  }
+
+  public static get fixedPackagesCacheDir() {
+    return path.resolve(Constants.cacheDir, 'fixture-packages');
   }
 
   public static get internalRegistry() {
@@ -80,10 +84,6 @@ export class Constants {
   }
 }
 
-type Tmp<Name> = {
-  Name: string[];
-};
-
 export class CLIUtils {
   public static get existPackages() {
     return fs.readdirSync(
@@ -113,6 +113,10 @@ export class CLIUtils {
     return path.resolve(__dirname, '../', Constants.packagesCacheDir, p);
   }
 
+  public static resolveFixtureCachePackageDir(p: string) {
+    return path.resolve(__dirname, '../', Constants.fixedPackagesCacheDir, p);
+  }
+
   public static existWorkspacePackageFilter(projects: string[], blur = false) {
     const existPackages = CLIUtils.existPackages;
 
@@ -125,6 +129,20 @@ export class CLIUtils {
     return blur
       ? existPackages.filter((p) => matched.some((m) => p.includes(m)))
       : matched;
+  }
+
+  public static copySyncWithFilter(
+    src: string,
+    dest: string,
+    pathFragmentsFilter: string[] = ['node_modules', 'dist', 'tmp'],
+    copyOptions: CopyOptionsSync = {}
+  ) {
+    fs.copySync(src, dest, {
+      filter: (src, dest) =>
+        pathFragmentsFilter.every((pattern) => !src.includes(pattern)),
+      recursive: true,
+      ...copyOptions,
+    });
   }
 
   public static findInfoFromKeywords(input: string) {
