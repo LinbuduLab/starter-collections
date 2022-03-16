@@ -86,8 +86,11 @@ In fact, all we need to do is to choose some of these projects according to our 
 ```
 
 Projects that are not selected will be removed from the workspace packages dir `/packages`
-and a backup will be kept in `node_modules/.LinbuduLab`, you can run `pnpm cli reset` to recover these packages,
-or use command `pnpm cli copy` to add removed packages back:
+and a backup will be kept in `node_modules/.LinbuduLab`.
+
+- You can run `pnpm cli reset` to recover these packages back to `packages` dir.
+- You can use command `pnpm cli copy` to add specified packages back.
+- You can execute `pnpm cli cache` to cache workspace packages manually.
 
 ```bash
 ✔ Choose starters you want to copy into workspace · esbuild-plugin-starter, esbuild-react-app
@@ -144,6 +147,22 @@ This command creates a simple TypeScript starter with minimal essential scripts 
 Command: `pnpm cli fork [workspace name] <forked worksapce dir>`.
 
 This command will create a fork of the current workspace at specified directory. If destination directory is not specified, it will use `../tmp/forked` as default.
+
+## Upgrade
+
+Command: `pnpm cli upgrade [projectBlurKeyword]`
+
+This command executes deps version checking and upgrading for specified packages. You can use just keyword or complete project name like:
+
+```bash
+# input 'vite' has no '-' signal, so it will work for all projects which has 'vite' in its name
+pnpm cli u vite
+
+# work for 'vite-react-starter' only
+pnpm cli u vite-react-starter
+```
+
+Also, if you execute this command with no project name (or no exist project name), it will ask you for working targets.
 
 ### Release
 

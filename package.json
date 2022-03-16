@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "cli": "ts-node -P scripts/tsconfig.script.json scripts/cli.ts",
+    "cli-dev": "ts-node-dev --respawn --transpile-only -P scripts/tsconfig.script.json scripts/cli.ts",
     "cs:add": "changeset add",
     "cs:version": "changeset version",
     "cs:publish": "changeset publish",
