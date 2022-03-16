@@ -1,0 +1,19 @@
+{
+  "name": "esbuild-plugin-starter",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsnd --respawn --transpile-only fixtures/build.ts",
+    "watch": "tsc --watch",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "esbuild": "^0.13.14"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.13.14"
+  }
+}

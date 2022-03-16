@@ -1,0 +1,42 @@
+fragment BlogFields on Blog {
+  Title
+  Body
+  Date
+  PostType
+  createdAt
+  updatedAt
+  publishedAt
+}
+
+query BlogQuery($queryId: ID) {
+  queryBlogById: blog(id: $queryId) {
+    data {
+      attributes {
+        ...BlogFields
+      }
+    }
+  }
+
+  queryBlogList: blogs {
+    data {
+      id
+      attributes {
+        ...BlogFields
+      }
+    }
+  }
+
+  queryBlogListFiltered: blogs(
+    publicationState: LIVE
+    sort: ["id"]
+    pagination: { start: 0, limit: 10 }
+    filters: { PostType: { in: ["Source", "Explore"] } }
+  ) {
+    data {
+      id
+      attributes {
+        ...BlogFields
+      }
+    }
+  }
+}

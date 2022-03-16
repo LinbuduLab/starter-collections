@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "cli": "ts-node -P scripts/tsconfig.script.json scripts/cli.ts",
-    "cli-dev": "ts-node-dev --respawn --transpile-only -P scripts/tsconfig.script.json scripts/cli.ts",
+    "cli-dev": "pnpm cli --respawn --transpile-only",
     "cs:add": "changeset add",
     "cs:version": "changeset version",
     "cs:publish": "changeset publish",
@@ -16,7 +16,9 @@
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "pnpm build:all && pnpm changeset publish",
     "remind": "ts-node -P scripts/tsconfig.script.json scripts/postinstall-reminder.ts",
-    "postinstall": "ts-node -P scripts/tsconfig.script.json scripts/cli.ts cache && pnpm remind"
+    "init:dep": "pnpm install cac fs-extra ora consola execa preferred-pm type-fest chalk enquirer --workspace-root --registry=https://registry.npmmirror.com",
+    "init:workspace": "pnpm init:dep && pnpm cli cache && pnpm cli init",
+    "postinstall": "pnpm cli cache && pnpm remind"
   },
   "repository": {
     "type": "git",
@@ -44,13 +46,13 @@
     "chalk": "^4.1.2",
     "consola": "^2.15.3",
     "enquirer": "^2.3.6",
-    "execa": "5.0.0",
+    "execa": "^5.0.0",
     "fs-extra": "^10.0.1",
     "jsonfile": "^6.1.0",
     "minimist": "^1.2.5",
     "nanoid": "^3.3.1",
     "npm-check-updates": "^12.5.3",
-    "ora": "^5.0.0",
+    "ora": "^5.4.1",
     "preferred-pm": "^3.0.3",
     "prettier": "^2.5.1",
     "prompts": "^2.4.2",
@@ -66,6 +68,8 @@
   },
   "resolutions": {
     "eslint": "^7.0.0",
-    "@types/eslint": "^7.0.0"
+    "@types/eslint": "^7.0.0",
+    "chalk": "^4.0.0",
+    "execa": "^5.0.0"
   }
 }

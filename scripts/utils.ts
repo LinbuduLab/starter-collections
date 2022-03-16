@@ -295,14 +295,17 @@ export class CLIUtils {
     console.log('');
     consola.info(`Executing command: ${chalk.cyan(command)}`);
 
-    await execa(command, {
+    const res = await execa(command, {
       stdio: 'inherit',
       shell: true,
       preferLocal: true,
       ...(options ?? {}),
     });
 
-    consola.info(`Execution finished.\n`);
+    console.log('');
+    consola.info(
+      `Execution finished, child process exits with code ${res.exitCode}.\n`
+    );
   }
 
   public static ensureArray<T>(array: T | T[]): T[] {

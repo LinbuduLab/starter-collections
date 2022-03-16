@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react",
+    "target": "es2017",
+    "lib": ["es2017"],
+    "module": "commonjs",
+    // The following option is set and is not overridable:
+    "moduleResolution": "node"
+  },
+  "include": ["src"]
+}
