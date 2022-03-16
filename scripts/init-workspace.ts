@@ -14,8 +14,7 @@ export default function useInitWorkspaceAfterInstall(cli: CAC) {
 
       const chosedStarters = await CLIUtils.createPackageMultiSelector(
         'chosedStarters',
-        'Pick starters to initialize workspace',
-        true
+        'Pick starters to initialize workspace'
       );
 
       const excluded = chosedStarters.includes(Constants.noneIdentifier)

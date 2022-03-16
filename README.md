@@ -4,6 +4,13 @@ Starters collection based on pnpm workspace.
 
 **Note: This is a personal project, it is not community oriented, so the direction of the iteration will be entirely based on the authors' own opinions.**
 
+## Getting Started
+
+- [Use this template](https://github.com/LinbuduLab/starter-collections/generate) and clone it.
+- **Do not run `pnpm install` at once**, run `pnpm init:workspace` to only install dependencies which is required by CLI.
+- Pick your starters.
+- Move on! 
+
 ## Packages
 
 ### React

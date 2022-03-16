@@ -168,7 +168,7 @@ export class CLIUtils {
   public static async createPackageMultiSelector<T extends string>(
     name: T,
     message: string,
-    color = true
+    color = false
   ): Promise<string[]> {
     const existPackages = CLIUtils.existPackages;
 
