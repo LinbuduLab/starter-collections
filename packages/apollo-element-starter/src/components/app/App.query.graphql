@@ -1,0 +1,12 @@
+query BlogQuery {
+  queryBlogList: blogs {
+    data {
+      id
+      attributes {
+        Title
+        Body
+        Date
+      }
+    }
+  }
+}

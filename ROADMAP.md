@@ -15,7 +15,6 @@
 - MidwayJS + GraphQL
 - GCG
 - GenQL
-- Apollo Server + Nexus / TypeGraphQL
 - Mobx -> React
 - MobxStateTree + GraphQL
 - Workflow: GitHub Actions
