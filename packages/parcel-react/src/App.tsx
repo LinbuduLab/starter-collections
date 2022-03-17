@@ -33,6 +33,7 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <img src={parcel} className="Parcel-logo" alt="logo" />
         </div>
+        <p>LinbuduLab Starters</p>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
           <br />

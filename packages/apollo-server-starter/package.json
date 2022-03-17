@@ -1,0 +1,29 @@
+{
+  "name": "apollo-server-starter",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsnd --respawn --transpile-only src/index.ts",
+    "watch": "tsc --watch",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "apollo-graphql": "^0.9.5",
+    "apollo-server": "^3.6.4",
+    "apollo-server-core": "^3.6.4",
+    "chalk": "4.0.0",
+    "class-validator": "^0.13.2",
+    "graphql": "^15.3.0",
+    "graphql-subscriptions": "^2.0.0",
+    "nexus": "^1.3.0",
+    "nexus-plugin-prisma": "^0.35.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
+  },
+  "resolutions": {
+    "graphql": "^15.3.0"
+  }
+}

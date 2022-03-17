@@ -7,8 +7,8 @@ Starters collection based on pnpm workspace.
 ## Getting Started
 
 - [Use this template](https://github.com/LinbuduLab/starter-collections/generate) and clone it.
-- **Do not run `pnpm install` immediately**, run `pnpm init:workspace` to only install dependencies which is required by CLI.
-- Pick your starters.
+- **Do not run `pnpm install` immediately**, run `pnpm init:workspace` to only install dependencies required by CLI.
+- Pick starters you need for this time.
 - Move on!
 
 Also, you can use `degit` to clone internal workspace packages directly:
@@ -18,8 +18,6 @@ pnpx degit https://github.com/LinbuduLab/starter-collections/packages/cac-cli-st
 
 pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> <dir>
 ```
-
-
 
 ## Packages
 
@@ -63,7 +61,7 @@ pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> 
 ### Framework
 
 - [Astro](packages/astro-generic-starter)
-- [Umi](packages/umi-starter/)
+- [Umi](packages/umi-starter/) (Temporarily removed as it's not stable yet)
 - StoryBook
 - Lit
 
