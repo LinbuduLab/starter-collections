@@ -1,0 +1,10 @@
+query recipes {
+  recipes {
+    title
+    ratings
+    averageRating
+    ratingsCount
+    description
+    creationDate
+  }
+}
