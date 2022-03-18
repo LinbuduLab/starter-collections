@@ -1,0 +1,45 @@
+{
+  "name": "gcg-collections",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "dev": "tsnd --respawn --transpile-only src/index.ts",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "graphql": "^15.3.0",
+    "mongodb": "^4.3.1",
+    "zod": "^3.11.6"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.4.0",
+    "@graphql-codegen/fragment-matcher": "3.2.1",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/jsdoc": "^2.2.2",
+    "@graphql-codegen/named-operations-object": "^2.2.1",
+    "@graphql-codegen/schema-ast": "^2.4.1",
+    "@graphql-codegen/typed-document-node": "^2.2.2",
+    "@graphql-codegen/typescript": "2.4.2",
+    "@graphql-codegen/typescript-document-nodes": "2.2.2",
+    "@graphql-codegen/typescript-graphql-files-modules": "2.1.1",
+    "@graphql-codegen/typescript-graphql-request": "^4.3.3",
+    "@graphql-codegen/typescript-mongodb": "2.3.0",
+    "@graphql-codegen/typescript-msw": "^1.0.1",
+    "@graphql-codegen/typescript-operations": "2.2.3",
+    "@graphql-codegen/typescript-react-apollo": "3.2.4",
+    "@graphql-codegen/typescript-react-query": "^3.5.0",
+    "@graphql-codegen/typescript-resolvers": "2.4.3",
+    "@graphql-codegen/typescript-type-graphql": "^2.2.3",
+    "@graphql-codegen/typescript-urql": "^3.5.0",
+    "@graphql-codegen/urql-introspection": "2.1.1",
+    "graphql-codegen-typescript-validation-schema": "^0.1.2"
+  },
+  "resolutions": {
+    "graphql": "^15.3.0"
+  }
+}

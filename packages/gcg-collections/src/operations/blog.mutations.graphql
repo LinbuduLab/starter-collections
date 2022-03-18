@@ -1,0 +1,40 @@
+fragment BlogFields on Blog {
+  Title
+  Body
+  Date
+  PostType
+  createdAt
+  updatedAt
+  publishedAt
+}
+
+mutation BlogMutation {
+  createBlog(
+    data: { Title: "GraphQL AST 全解析", Body: "👴🏻也不会", PostType: Source }
+  ) {
+    data {
+      id
+      attributes {
+        ...BlogFields
+      }
+    }
+  }
+
+  updateBlog(id: "4", data: { Body: "👴🏻写完了！" }) {
+    data {
+      id
+      attributes {
+        ...BlogFields
+      }
+    }
+  }
+
+  deleteBlog(id: "599") {
+    data {
+      id
+      attributes {
+        ...BlogFields
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+overwrite: true
+schema: 'http://localhost:1337/graphql'
+documents: 'src/operations/*.graphql'
+generates:
+  src/generated/schema.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-resolvers'
+      - 'typescript-react-apollo'
+  src/generated/operations.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-resolvers'
+  src/generated/react-apollo.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-react-apollo'
+
+  src/generated/fragment-matcher.ts:
+    plugins:
+      - 'fragment-matcher'
+
+  src/generated/mongodb.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-mongodb'
+
+  src/generated/urql-introspection.ts:
+    plugins:
+      - 'urql-introspection'
+
+  src/generated/urql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-urql'
+
+  src/generated/ast.graphql:
+    plugins:
+      - 'schema-ast'
+
+  src/generated/graphql-request.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'
+
+  src/generated/typed-document-node.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typed-document-node'
+  src/generated/react-query.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      strictScalars: false
+      schema: zod
+
+  src/generated/type-graphql.ts:
+    plugins:
+      - typescript
+      - typescript-type-graphql
+
+  src/generated/named-operation.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - named-operations-object
+
+  src/generated/msw.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-msw
+
+  src/generated/jsdoc.ts:
+    plugins:
+      - jsdoc
+
+  src/generated/file-modules.d.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-graphql-files-modules'
+
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'

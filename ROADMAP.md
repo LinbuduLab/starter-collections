@@ -11,7 +11,6 @@
 ## Hydration(Stage 4)
 
 - Nest
-- Apollo Client
 - Nest + GraphQL
 - MidwayJS + GraphQL
 - GCG
