@@ -13,6 +13,8 @@ tmp
 
 generated
 
+graphql.schema.json
+
 # Runtime data
 pids
 *.pid
