@@ -5,7 +5,6 @@
 ## Advanced(Stage 3)
 
 - StoryBook
-- Lit
 - Midway Hooks
 - Midway Serverless
 

@@ -829,6 +829,17 @@ importers:
     devDependencies:
       tsd: 0.19.1
 
+  packages/vite-lit-starter:
+    specifiers:
+      lit: ^2.0.2
+      typescript: ^4.5.4
+      vite: ^2.8.0
+    dependencies:
+      lit: 2.2.1
+    devDependencies:
+      typescript: 4.6.2
+      vite: 2.8.6
+
   packages/vite-plugin-starter:
     specifiers:
       vite: ^2.7.2
@@ -1950,21 +1961,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/types': 7.17.0
-
-  /@babel/helper-module-transforms/7.17.6:
-    resolution: {integrity: sha512-2ULmRdqoOMpdvkbT8jONrZML/XALfzxlb052bldftkicAUy8AxSCkD5trDPQcwHNmolcl7wP6ehNqMlyUw6AaA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-environment-visitor': 7.16.7
-      '@babel/helper-module-imports': 7.16.7
-      '@babel/helper-simple-access': 7.17.7
-      '@babel/helper-split-export-declaration': 7.16.7
-      '@babel/helper-validator-identifier': 7.16.7
-      '@babel/template': 7.16.7
-      '@babel/traverse': 7.17.3
-      '@babel/types': 7.17.0
-    transitivePeerDependencies:
-      - supports-color
 
   /@babel/helper-module-transforms/7.17.7:
     resolution: {integrity: sha512-VmZD99F3gNTYB7fJRDTi+u6l/zxY0BE6OIxPSU7a50s6ZUQkHwSDmV92FfM+oCG0pZRVojGYhkR8I0OGeCVREw==}
@@ -3722,7 +3718,7 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
       babel-plugin-dynamic-import-node: 2.3.3
     transitivePeerDependencies:
@@ -3736,7 +3732,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.16.7
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
       babel-plugin-dynamic-import-node: 2.3.3
     transitivePeerDependencies:
@@ -3750,7 +3746,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.17.5
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
       babel-plugin-dynamic-import-node: 2.3.3
     transitivePeerDependencies:
@@ -3821,7 +3817,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/helper-hoist-variables': 7.16.7
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
       '@babel/helper-validator-identifier': 7.16.7
       babel-plugin-dynamic-import-node: 2.3.3
@@ -3837,7 +3833,7 @@ packages:
     dependencies:
       '@babel/core': 7.16.7
       '@babel/helper-hoist-variables': 7.16.7
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
       '@babel/helper-validator-identifier': 7.16.7
       babel-plugin-dynamic-import-node: 2.3.3
@@ -3853,7 +3849,7 @@ packages:
     dependencies:
       '@babel/core': 7.17.5
       '@babel/helper-hoist-variables': 7.16.7
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
       '@babel/helper-validator-identifier': 7.16.7
       babel-plugin-dynamic-import-node: 2.3.3
@@ -3866,7 +3862,7 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
     transitivePeerDependencies:
       - supports-color
@@ -3879,7 +3875,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.16.7
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
     transitivePeerDependencies:
       - supports-color
@@ -3892,7 +3888,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.17.5
-      '@babel/helper-module-transforms': 7.17.6
+      '@babel/helper-module-transforms': 7.17.7
       '@babel/helper-plugin-utils': 7.16.7
     transitivePeerDependencies:
       - supports-color
@@ -21694,6 +21690,7 @@ packages:
       setprototypeof: 1.2.0
       statuses: 1.5.0
       toidentifier: 1.0.0
+    dev: false
 
   /http-errors/1.8.1:
     resolution: {integrity: sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==}
@@ -24650,7 +24647,7 @@ packages:
     engines: {node: '>= 8'}
     dependencies:
       debug: 4.3.3
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       resolve-path: 1.4.0
     transitivePeerDependencies:
       - supports-color
@@ -31970,7 +31967,7 @@ packages:
     dependencies:
       hast-util-sanitize: 3.0.2
       hast-util-to-html: 7.1.3
-      mdast-util-to-hast: 10.0.1
+      mdast-util-to-hast: 10.2.0
     dev: true
 
   /remark-mdx/1.6.22:
@@ -34906,6 +34903,7 @@ packages:
   /toidentifier/1.0.0:
     resolution: {integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==}
     engines: {node: '>=0.6'}
+    dev: false
 
   /toidentifier/1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
