@@ -6,6 +6,8 @@
 
 - StoryBook
 - Lit
+- Midway Hooks
+- Midway Serverless
 
 ## Hydration(Stage 4)
 
