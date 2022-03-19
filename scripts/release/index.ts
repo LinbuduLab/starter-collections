@@ -8,6 +8,7 @@ import { CAC } from 'cac';
  * - git-cz
  * - changelog related
  * - simple mode
+ *
  * @param cli
  */
 export default function useReleaseProject(cli: CAC) {}
