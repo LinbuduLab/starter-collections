@@ -2,7 +2,8 @@
   "name": "parcel-tsx-boilerplate",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel serve ./public/index.html --port 3000 --open --target modern",
+    "dev": "pnpm start",
+    "start": "parcel serve ./public/index.html --port 3000 --open --target modern --cache-dir ./node_modules/.cache/parcel",
     "build:watch": "parcel watch ./public/index.html --target modern",
     "build": "yarn build:legacy && yarn build:modern",
     "build:legacy": "parcel build ./public/index.html --target legacy",
