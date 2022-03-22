@@ -26,7 +26,7 @@
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
     "docs:serve": "vitepress serve docs",
-    "init:dep": "pnpm install cac fs-extra ora consola execa preferred-pm type-fest chalk enquirer --workspace-root --registry=https://registry.npmmirror.com",
+    "init:dep": "pnpx zx scripts/zx/install-workspace-root-deps-only.mjs",
     "init:workspace": "pnpm init:dep && pnpm cli cache && pnpm cli init",
     "postinstall": "pnpm cli cache && pnpm remind",
     "remind": "ts-node -P scripts/tsconfig.script.json scripts/postinstall-reminder.ts"
