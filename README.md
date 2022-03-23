@@ -163,7 +163,7 @@ Command: `pnpm cli fork [workspace name] <forked worksapce dir>`.
 
 This command will create a fork of the current workspace at specified directory. If destination directory is not specified, it will use `../tmp/forked` as default.
 
-## Upgrade
+### Upgrade
 
 Command: `pnpm cli upgrade [projectBlurKeyword]`
 
