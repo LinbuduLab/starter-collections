@@ -14,6 +14,11 @@ export default function useCachePackage(cli: CAC) {
       fs.ensureDirSync(CLIUtils.resolvedPackageRootDir);
       const existPackages = CLIUtils.existPackages;
 
+      if (!existPackages.length) {
+        consola.warn('No package found in current workspace, exit.');
+        process.exit(0);
+      }
+
       for (const p of existPackages) {
         const projectSrcPath = CLIUtils.resolvePackageDir(p);
         const projectDestPath = CLIUtils.resolveCachePackageDir(p);

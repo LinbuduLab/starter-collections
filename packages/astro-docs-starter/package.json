@@ -12,13 +12,13 @@
     "@algolia/client-search": "^4.13.0",
     "@docsearch/css": "^3.0.0",
     "@docsearch/react": "^3.0.0",
-    "@types/react": "^17.0.40",
+    "@types/react": "^17.0.42",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@astrojs/renderer-preact": "^0.5.0",
     "@astrojs/renderer-react": "^0.5.0",
-    "astro": "^0.24.2"
+    "astro": "^0.24.3"
   }
 }

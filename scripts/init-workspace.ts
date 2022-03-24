@@ -12,6 +12,11 @@ export default function useInitWorkspaceAfterInstall(cli: CAC) {
     .action(async () => {
       const existPackages = CLIUtils.existPackages;
 
+      if (!existPackages.length) {
+        consola.warn('No package found in current workspace, exit.');
+        process.exit(0);
+      }
+
       const chosedStarters = await CLIUtils.createPackageMultiSelector(
         'chosedStarters',
         'Pick starters to initialize workspace'
