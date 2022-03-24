@@ -40,12 +40,11 @@ pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> 
 - [Nest + Mercurius](packages/nest-mercurius-starter/)
 - [Strapi(with GraphQL)](packages/strapi-graphql-starter/)
 - MidwayJs + GraphQL
-- Apollo Element
-- Apollo Client
-- Apollo Server
+- [Apollo Element](packages/apollo-element-starter/)
+- [Apollo Client](packages/vite-apollo-gcg-starter/)
+- [Apollo Server](packages/apollo-server-starter/)
 - Envelop Plugin Starter
-- Apollo Plugin Starter
-- GraphQL Code Generator
+- [GraphQL Code Generator](packages/gcg-collections/)
 
 ### Lib
 
@@ -63,13 +62,13 @@ pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> 
 - [Astro](packages/astro-generic-starter)
 - [Umi](packages/umi-starter/) (Temporarily removed as it's not stable yet)
 - StoryBook
-- Lit
+- [Lit](packages/lit-app/)
+- [Stencil](packages/stencil-app/)
 
 ### Documentation
 
 - [Astro](packages/astro-docs-starter)
 - [VitePress](packages/vitepress-starter)
-- GitBook
 
 ## Scripts
 
