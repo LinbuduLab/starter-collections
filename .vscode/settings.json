@@ -1,6 +1,3 @@
 {
-  "pnpm-vscode-helper.extraWorkspaceScripts": [],
-  "pnpm-vscode-helper.workspacePackageGroups": [
-    ["ApolloRelated", ["apollo-elements-app", "apollo-server-starter"]]
-  ]
+  "pnpm-vscode-helper.extraWorkspaceScripts": ["build:tmp", "develop"]
 }
