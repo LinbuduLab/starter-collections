@@ -33,11 +33,13 @@ export default function useRenameWorkspacePackage(cli: CAC) {
         tasks.push([pkg, renamed]);
       }
 
-      if (!tasks.length) {
-        consola.error('No copy tasks available.');
+      const filteredTasks = tasks.filter((t) => t[1].length);
+
+      if (!filteredTasks.length) {
+        consola.error('No rename task available.');
       }
 
-      for (const [raw, renamed] of tasks) {
+      for (const [raw, renamed] of filteredTasks) {
         const rawDir = CLIUtils.resolvePackageDir(raw);
         const dest = CLIUtils.resolvePackageDir(renamed);
 

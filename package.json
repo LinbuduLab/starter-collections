@@ -18,7 +18,7 @@
     "ci:publish": "pnpm build:all && pnpm changeset publish",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
     "cli": "ts-node -P scripts/tsconfig.script.json scripts/cli.ts",
-    "cli-dev": "pnpm cli --respawn --transpile-only",
+    "cli-dev": "ts-node -P scripts/tsconfig.script.json --transpile-only scripts/cli.ts",
     "cs:add": "changeset add",
     "cs:publish": "changeset publish",
     "cs:tag": "changeset tag",
