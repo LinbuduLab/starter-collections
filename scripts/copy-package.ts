@@ -52,7 +52,7 @@ export default function useCopyPackageFromCacheDir(cli: CAC) {
         const source = CLIUtils.resolveCachePackageDir(raw);
         const dest = CLIUtils.resolvePackageDir(renamed);
 
-        console.info(
+        consola.info(
           `Copying template ${chalk.bold.green(
             raw
           )} to workspace ${chalk.bold.white(renamed)}`
@@ -63,6 +63,8 @@ export default function useCopyPackageFromCacheDir(cli: CAC) {
         const destPkgJsonPath = path.join(dest, 'package.json');
 
         CLIUtils.modifyPackageJSON(destPkgJsonPath, 'name', renamed);
+
+        consola.success(`New package ${chalk.bold.green(renamed)} Created.`);
       }
     });
 }

@@ -42,6 +42,10 @@ export class Constants {
     return 'https://registry.npmmirror.com';
   }
 
+  public static get releaseRegistry() {
+    return 'https://registry.npmjs.org/';
+  }
+
   /**
    * colors: {@link https://revel-in-color.vercel.app/}
    * @returns

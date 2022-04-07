@@ -62,6 +62,7 @@
     "prettier": "^2.5.1",
     "prompts": "^2.4.2",
     "semver": "^7.3.5",
+    "simple-git": "^3.5.0",
     "ts-node": "^10.5.0",
     "ts-node-dev": "^1.1.8",
     "type-fest": "^2.12.0",

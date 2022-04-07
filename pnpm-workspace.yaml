@@ -1,6 +1,8 @@
 packages:
   - 'packages/**'
   - 'tmp-packages-dir/**'
+  # exclude puppeteer project to faster deps installation
+  - '!packages/puppeteer-starter'
   - '!**/node-lib-starter-exclude'
 # 设置为 false 时，workspace: 协议仍然有效
 link-workspace-packages: true
