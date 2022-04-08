@@ -169,6 +169,41 @@ export class CLIUtils {
     return res.confirm;
   }
 
+  public static async createPackageSelector<T extends string>(
+    name: T,
+    message: string,
+    color = false
+  ): Promise<string> {
+    const existPackages = CLIUtils.existPackages;
+
+    const res = await enquirer.prompt<string>({
+      type: 'select',
+      choices: color
+        ? existPackages.map((p) => {
+            return {
+              name: p,
+              value: p,
+              message: color
+                ? chalk.hex(
+                    (
+                      CLIUtils.findInfoFromKeywords(p) ??
+                      Constants.starterInfoMap['other']
+                    ).color
+                  )(p)
+                : p,
+            };
+          })
+        : existPackages,
+      muliple: false,
+      sort: true,
+      scroll: true,
+      name,
+      message,
+    });
+
+    return res;
+  }
+
   public static async createPackageMultiSelector<T extends string>(
     name: T,
     message: string,

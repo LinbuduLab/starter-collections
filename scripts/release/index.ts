@@ -1,7 +1,7 @@
 import { CAC } from 'cac';
 import fs from 'fs-extra';
-import path from 'path/posix';
-import inquirer from 'inquirer';
+import path from 'path';
+import enquirer from 'enquirer';
 import chalk from 'chalk';
 import ora from 'ora';
 import consola from 'consola';
@@ -10,27 +10,24 @@ import execa from 'execa';
 import { CLIUtils, Constants } from '../utils';
 import { ReleaseType, inc, compare } from 'semver';
 import simpleGit from 'simple-git';
+import { PackageJson } from 'type-fest';
 
 interface ReleaseCommandOptions {
-  dryRun: boolean;
+  dry: boolean;
   quick: boolean;
 }
 
+const RELEASE_TYPE_LIST: ReleaseType[] = [
+  'major',
+  'minor',
+  'patch',
+  'premajor',
+  'preminor',
+  'prepatch',
+  'prerelease',
+];
+
 /**
- * Workflow:
- *
- * 1. Select release project and release version(if not specified, use prompt)
- * 2. Check current version and registry version
- * 3. Bump version
- * 4. Compose Tag
- * 5. Update version
- * 6. Build with dependencies
- * 7. Run git diff
- * 8. Run git add and git cz
- * 9. Run git tag
- * 10. Run git push
- * 11. Check npm whoami
- * 12. Publish package
  *
  * TODO: ChangeLog Generator
  *
@@ -48,7 +45,8 @@ export default function useReleaseProject(cli: CAC) {
   cli
     .command('release [project] [releaseType]', 'release project')
     .alias('r')
-    .option('-d,--dryRun', 'execute in dry run mode')
+    .option('--no-dry', 'donot execute in dry run mode')
+    .option('--dry', 'execute in dry run mode')
     .option(
       '-q,--quick',
       'perform a quick patch release without any checks or confirmation'
@@ -59,7 +57,236 @@ export default function useReleaseProject(cli: CAC) {
         releaseType?: ReleaseType,
         options?: Partial<ReleaseCommandOptions>
       ) => {
-        console.log(project, releaseType, options);
+        const { dry = false, quick = false } = options ?? {};
+
+        const dryRunInfoLogger = (msg: MaybeArray<string>) =>
+          dry
+            ? consola.info(
+                `${chalk.white('DRY RUN MODE')}: ${ensureArray(msg).join(' ')}`
+              )
+            : consola.info(msg);
+
+        const dryRunSuccessLogger = (msg: MaybeArray<string>) =>
+          dry
+            ? consola.success(
+                `${chalk.white('DRY RUN MODE')}: ${ensureArray(msg).join(' ')}`
+              )
+            : consola.success(msg);
+
+        let projectToRelease: string;
+        let projectReleaseType: ReleaseType;
+
+        if (quick) {
+          projectReleaseType = 'patch';
+        }
+
+        if (project) {
+          const { existPackages } = CLIUtils;
+          if (!existPackages.includes(project)) {
+            consola.error(`Project ${chalk.green(project)} not found.`);
+            process.exit(1);
+          } else {
+            projectToRelease = project;
+          }
+        } else {
+          projectToRelease = (
+            await enquirer.prompt<{ project: string }>({
+              name: 'project',
+              message: 'Select project to release:',
+              type: 'select',
+              choices: CLIUtils.existPackages,
+              muliple: false,
+            })
+          ).project;
+        }
+
+        if (releaseType) {
+          if (!RELEASE_TYPE_LIST.includes(releaseType)) {
+            consola.error(
+              `Release type ${chalk.green(releaseType)} not valid.`
+            );
+            process.exit(1);
+          } else {
+            projectReleaseType = releaseType;
+          }
+        } else if (quick) {
+        } else {
+          projectReleaseType = (
+            await enquirer.prompt<{ type: ReleaseType }>({
+              name: 'type',
+              message: 'Select release type:',
+              type: 'select',
+              choices: RELEASE_TYPE_LIST.reverse(),
+              muliple: false,
+            })
+          ).type;
+        }
+
+        const projectDirPath = CLIUtils.resolvePackageDir(projectToRelease);
+        const projectPackageJsonPath = path.join(
+          projectDirPath,
+          'package.json'
+        );
+
+        const { version: rawVersion, name: packageName } =
+          CLIUtils.readJsonSync<PackageJson>(projectPackageJsonPath);
+
+        const bumpedVersion = inc(rawVersion, projectReleaseType);
+
+        let remoteVersion: string | null = null;
+
+        try {
+          const { version } = await pacote.manifest(packageName);
+
+          remoteVersion = version;
+        } catch (error) {
+          consola.warn(`Package ${chalk.cyan(packageName)} not published yet.`);
+        }
+
+        consola.info(
+          `Current version: ${chalk.green(rawVersion)}, Remote version: ${
+            remoteVersion ? chalk.cyan(remoteVersion) : chalk.red('NOT FOUND')
+          }, Bump to: ${chalk.green(bumpedVersion)}`
+        );
+
+        const releaseTag = `${projectToRelease}@${bumpedVersion}`;
+
+        dryRunInfoLogger(`Release ${chalk.cyan(releaseTag)}?`);
+
+        const confirmVersion = await CLIUtils.createConfirmSelector('Confirm?');
+
+        if (!confirmVersion) {
+          consola.info('Release aborted.');
+          process.exit(1);
+        } else {
+          consola.info('Executing release flow...');
+        }
+
+        dryRunInfoLogger(
+          `Updating ${chalk.cyan(packageName)} version to ${chalk.green(
+            bumpedVersion
+          )}`
+        );
+
+        !dry &&
+          CLIUtils.modifyPackageJSON(
+            projectPackageJsonPath,
+            'version',
+            bumpedVersion
+          );
+
+        dryRunSuccessLogger(
+          `Bumped version info in ${chalk.green(projectPackageJsonPath)}`
+        );
+
+        consola.info(`Building project...`);
+
+        await CLIUtils.useChildProcess(
+          `pnpm run build --filter=${packageName}`,
+          {
+            cwd: process.cwd(),
+          }
+        );
+
+        consola.success(
+          `Package ${chalk.white(projectToRelease)}(${chalk.green(
+            packageName
+          )}) built successfully.`
+        );
+
+        const { stdout } = await execa('git', ['diff'], {
+          stdio: 'pipe',
+          cwd: projectDirPath,
+        });
+
+        if (!stdout) {
+          consola.error('No commit changes found, exit.');
+          process.exit(0);
+        }
+
+        await CLIUtils.useChildProcess(
+          `git add ${projectDirPath} --verbose --dry-run`
+        );
+
+        const gitCZCommandArgs = [
+          '--type=release',
+          `--scope=${projectToRelease.split('-')[0]}`,
+          `--subject=Release ${releaseTag}`,
+          '--non-interactive',
+        ];
+
+        dry
+          ? consola.info(
+              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                `git-cz ${gitCZCommandArgs.join(' ')}`
+              )}`
+            )
+          : await CLIUtils.useChildProcess(
+              `git-cz --${gitCZCommandArgs.join('')}`
+            );
+
+        dry
+          ? consola.info(
+              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                `git tag ${releaseTag}`
+              )}`
+            )
+          : await CLIUtils.useChildProcess(`git tag ${releaseTag}`);
+
+        dry
+          ? consola.info(
+              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                `git push origin refs/tags/${releaseTag} --verbose --progress`
+              )}`
+            )
+          : await CLIUtils.useChildProcess(
+              `git ${[
+                'push',
+                'origin',
+                `refs/tags/${releaseTag}`,
+                '--verbose',
+                '--progress',
+              ].join(' ')}`
+            );
+
+        dryRunInfoLogger(['Pubishing package...']);
+
+        const { stdout: logAs } = await execa(
+          'npm',
+          ['whoami', `--registry=${Constants.releaseRegistry}`],
+          {
+            cwd: projectDirPath,
+            stdio: 'pipe',
+            shell: true,
+            preferLocal: true,
+          }
+        );
+
+        consola.info(`You're now logged as ${chalk.bold(chalk.white(logAs))}`);
+
+        await execa(
+          'pnpm',
+          [
+            'publish',
+            `--registry=${Constants.releaseRegistry}`,
+            '--access=public',
+            '--no-git-checks',
+          ].concat(dry ? ['--dry-run'] : []),
+          {
+            cwd: projectDirPath,
+            stdio: 'inherit',
+            shell: true,
+            preferLocal: true,
+          }
+        );
+
+        dryRunSuccessLogger(['Package published.']);
       }
     );
 }
+
+type MaybeArray<T> = T | T[];
+
+export const ensureArray = <T>(value: MaybeArray<T>): T[] => {
+  return Array.isArray(value) ? value : [value];
+};

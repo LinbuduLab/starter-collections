@@ -1,6 +1,6 @@
 {
-  "name": "rtt",
-  "version": "0.0.1",
+  "name": "@llab/rtt",
+  "version": "0.0.2-4",
   "description": "",
   "main": "./dist/index.js",
   "license": "MIT",
