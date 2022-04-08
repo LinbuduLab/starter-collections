@@ -59,6 +59,8 @@ export default function useReleaseProject(cli: CAC) {
       ) => {
         const { dry = false, quick = false } = options ?? {};
 
+        if (quick) releaseType = 'patch';
+
         const dryRunInfoLogger = (msg: MaybeArray<string>) =>
           dry
             ? consola.info(
@@ -109,7 +111,6 @@ export default function useReleaseProject(cli: CAC) {
           } else {
             projectReleaseType = releaseType;
           }
-        } else if (quick) {
         } else {
           projectReleaseType = (
             await enquirer.prompt<{ type: ReleaseType }>({
@@ -127,6 +128,8 @@ export default function useReleaseProject(cli: CAC) {
           projectDirPath,
           'package.json'
         );
+
+        consola.info(`Release Type: ${chalk.cyan(projectReleaseType)}`);
 
         const { version: rawVersion, name: packageName } =
           CLIUtils.readJsonSync<PackageJson>(projectPackageJsonPath);
@@ -153,7 +156,9 @@ export default function useReleaseProject(cli: CAC) {
 
         dryRunInfoLogger(`Release ${chalk.cyan(releaseTag)}?`);
 
-        const confirmVersion = await CLIUtils.createConfirmSelector('Confirm?');
+        const confirmVersion = quick
+          ? true
+          : await CLIUtils.createConfirmSelector('Confirm?');
 
         if (!confirmVersion) {
           consola.info('Release aborted.');
@@ -194,62 +199,66 @@ export default function useReleaseProject(cli: CAC) {
           )}) built successfully.`
         );
 
-        const { stdout } = await execa('git', ['diff'], {
-          stdio: 'pipe',
-          cwd: projectDirPath,
-        });
+        if (quick) {
+          consola.info(`Quick release mode. Skipping git flow.`);
+        } else {
+          const { stdout } = await execa('git', ['diff'], {
+            stdio: 'pipe',
+            cwd: projectDirPath,
+          });
 
-        if (!stdout) {
-          consola.error('No commit changes found, exit.');
-          process.exit(0);
+          if (!stdout) {
+            consola.error('No commit changes found, exit.');
+            process.exit(0);
+          }
+
+          await CLIUtils.useChildProcess(
+            `git add ${projectDirPath} --verbose --dry-run`
+          );
+
+          const gitCZCommandArgs = [
+            '--type=release',
+            `--scope=${projectToRelease.split('-')[0]}`,
+            `--subject=Release ${releaseTag}`,
+            '--non-interactive',
+          ];
+
+          dry
+            ? consola.info(
+                `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                  `git-cz ${gitCZCommandArgs.join(' ')}`
+                )}`
+              )
+            : await CLIUtils.useChildProcess(
+                `git-cz --${gitCZCommandArgs.join('')}`
+              );
+
+          dry
+            ? consola.info(
+                `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                  `git tag ${releaseTag}`
+                )}`
+              )
+            : await CLIUtils.useChildProcess(`git tag ${releaseTag}`);
+
+          dry
+            ? consola.info(
+                `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                  `git push origin refs/tags/${releaseTag} --verbose --progress`
+                )}`
+              )
+            : await CLIUtils.useChildProcess(
+                `git ${[
+                  'push',
+                  'origin',
+                  `refs/tags/${releaseTag}`,
+                  '--verbose',
+                  '--progress',
+                ].join(' ')}`
+              );
         }
 
-        await CLIUtils.useChildProcess(
-          `git add ${projectDirPath} --verbose --dry-run`
-        );
-
-        const gitCZCommandArgs = [
-          '--type=release',
-          `--scope=${projectToRelease.split('-')[0]}`,
-          `--subject=Release ${releaseTag}`,
-          '--non-interactive',
-        ];
-
-        dry
-          ? consola.info(
-              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
-                `git-cz ${gitCZCommandArgs.join(' ')}`
-              )}`
-            )
-          : await CLIUtils.useChildProcess(
-              `git-cz --${gitCZCommandArgs.join('')}`
-            );
-
-        dry
-          ? consola.info(
-              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
-                `git tag ${releaseTag}`
-              )}`
-            )
-          : await CLIUtils.useChildProcess(`git tag ${releaseTag}`);
-
-        dry
-          ? consola.info(
-              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
-                `git push origin refs/tags/${releaseTag} --verbose --progress`
-              )}`
-            )
-          : await CLIUtils.useChildProcess(
-              `git ${[
-                'push',
-                'origin',
-                `refs/tags/${releaseTag}`,
-                '--verbose',
-                '--progress',
-              ].join(' ')}`
-            );
-
-        dryRunInfoLogger(['Pubishing package...']);
+        dryRunInfoLogger('Pubishing package...');
 
         const { stdout: logAs } = await execa(
           'npm',
@@ -280,7 +289,7 @@ export default function useReleaseProject(cli: CAC) {
           }
         );
 
-        dryRunSuccessLogger(['Package published.']);
+        dryRunSuccessLogger('Package published.');
       }
     );
 }
