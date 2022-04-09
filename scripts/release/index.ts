@@ -132,7 +132,7 @@ export default function useReleaseProject(cli: CAC) {
         consola.info(`Release Type: ${chalk.cyan(projectReleaseType)}`);
 
         const { version: rawVersion, name: packageName } =
-          CLIUtils.readJsonSync<PackageJson>(projectPackageJsonPath);
+          CLIUtils.readJsonSync<Required<PackageJson>>(projectPackageJsonPath);
 
         const bumpedVersion = inc(rawVersion, projectReleaseType);
 
