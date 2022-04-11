@@ -12,7 +12,6 @@
 - MidwayJS + GraphQL
 - GenQL
 - RPC
-- Node worker_threads
 - serverless
 - Mobx -> React
 - MobxStateTree + GraphQL
