@@ -31,12 +31,12 @@ pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> 
 ### NodeJs Server
 
 - [NestJs](packages/nest-starter/)
-- [Mercurius](packages/mercurius-starter/)
 - [MidwayJs](packages/midway-koa)
 
 ### GraphQL
 
 - [NestJs + GraphQL](packages/nest-graphql-starter/)
+- [Mercurius](packages/mercurius-starter/)
 - [Nest + Mercurius](packages/nest-mercurius-starter/)
 - [Strapi(with GraphQL)](packages/strapi-graphql-starter/)
 - MidwayJs + GraphQL
@@ -46,21 +46,20 @@ pnpx degit https://github.com/LinbuduLab/starter-collections/packages/<package> 
 - Envelop Plugin Starter
 - [GraphQL Code Generator](packages/gcg-collections/)
 
-### Lib
+### Lib & Playground
 
 - [ESBuild Plugin Starter](packages/esbuild-plugin-starter/)
 - [Vite Plugin Starter](packages/vite-plugin-starter)
 - [TypeScript Tool Type](packages/ts-tool-type-starter/)
 - [Common Node Library](packages/node-lib-starter/)
 - [Prisma Starter](packages/prisma-starter)
-- [CLI App by CAC](packages/cac-cli-starter/), with common CLI tools.
+- [CLI App by CAC](packages/cac-cli-starter/)
 - GitHub Action
 - [Puppeteer](packages/puppeteer-starter)
 
 ### Framework
 
 - [Astro](packages/astro-generic-starter)
-- [Umi](packages/umi-starter/) (Temporarily removed as it's not stable yet)
 - StoryBook
 - [Lit](packages/lit-app/)
 - [Stencil](packages/stencil-app/)
@@ -184,78 +183,12 @@ Also, if you execute this command with no project name (or no exist project name
 
 Command: `pnpm cli release [project] --minor --skip-git-checks --changelog`
 
-### pnpm commands
+## VS Code Helper for PNPM
 
-Common commands:
+[pnpm-vscode-helper](https://github.com/LinbuduLab/pnpm-vscode-helper): VS Code Extension for pnpm, pnpm workspace and more.
 
-```bash
-pnpm i typescript@beta --filter '*' -D
-pnpm add child1 --filter 'parent1' --workspace
-pnpm run build --recursive --if-present --parallel --enable-pre-post-scripts --filter ''
-pnpm exec jest --recursive --parallel --filter ''
+In such workspaces, which contain a large number of packages, you can use this extension to greatly improve productivity, including auto-completion, workspace package navigation, and intuitive use of the powerful pnpm filtering syntax.
 
-pnpx create-react-app ./my-app
-pnpm create react-app my-app
-
-pnpm env use --global lts
-pnpm env use --global 16
-
-pnpm publish -r
-pnpm publish --tag --access=public --git-checks --report-summary --filter
-```
-
-Release workflow:
-
-```bash
-pnpm add @changesets/cli -DW
-pnpm changeset init
-pnpm changeset
-pnpm changeset version
-pnpm install
-git add . && git commit -m 'feat: bump!'
-pnpm publish -r --access=public
-git push
-```
-
-More filter syntax:
-
-> See [Filtering](https://pnpm.io/filtering#--filter-package_name) for more details.
-
-```bash
-# exact matching
-pnpm --filter '@scope/*'
-pnpm --filter 'prefix-*'
-pnpm --filter 'pre*'
-pnpm --filter '*post'
-
-# package and its deps
-pnpm --filter pkg...
-pnpm --filter "@scope/pkg-*..."
-
-# package and its dependents
-pnpm --filter ...pkg
-
-# only package deps
-pnpm --filter "foo^..."
-
-# only package dependents
-pnpm --filter "...^foo"
-
-# use directory
-pnpm --filter ./packages/pkg
-
-# include packages under dir
-pnpm --filter ...{./packages}
-pnpm --filter {./packages}...
-pnpm --filter ...{./packages}[origin/master]...
-
-# since
-pnpm --filter '...[origin/master]'
-
-# exclude
-pnpm --filter=!excluded-pkg
-
-```
 
 ## License
 
